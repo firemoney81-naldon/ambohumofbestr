@@ -1,23 +1,526 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+  <!-- Schema.org FAQ 구조화 데이터 -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "암보험 면책기간이란 정확히 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "암보험 면책기간은 보험 가입일로부터 일정 기간 동안 보험사가 암 진단에 대한 보장 책임을 지지 않는 기간을 의미합니다. 이 기간 동안 암이 발병하면 보험금을 전혀 받을 수 없습니다. 대부분의 암보험 상품은 가입일로부터 90일을 면책기간으로 설정하고 있으며, 이는 가입자가 이미 암을 앓고 있는 상태에서 보험에 가입하는 '역선택'을 방지하기 위함입니다. 면책기간이 끝나는 시점인 '보장개시일'부터 비로소 암에 대한 보장이 시작됩니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "면책기간과 감액기간의 차이점은 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "면책기간은 보험금이 0원으로 지급되지 않는 기간인 반면, 감액기간은 보험금을 일부(보통 가입금액의 50%)만 지급하는 기간입니다. 예를 들어, 면책기간(90일)이 지난 후 감액기간(1~2년) 내에 암이 진단되면 가입금액의 절반만 받게 됩니다. 감액기간은 상품에 따라 1년 혹은 2년으로 설정되며, 감액기간이 종료되어야 가입금액 전체(100%)를 보장받을 수 있습니다."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "암보험 가입 시 면책기간을 확인하는 방법과 주의사항은 무엇인가요?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "면책기간은 보험 상품별 약관에서 '면책기간' 또는 '보장개시일' 항목을 통해 확인할 수 있습니다. 가입 시 보험설계사에게 직접 문의하거나, 보험사 고객센터 전화 상담, 보험증권 확인 등으로 정확한 정보를 파악하는 것이 중요합니다. 특히 유사암(갑상선암, 제자리암, 기타피부암 등)의 경우 일반암과 면책기간 및 감액기간 조건이 다를 수 있으므로 꼼꼼히 비교해야 합니다."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- 스타일: 부드럽고 다채로운 색, 타이틀 강조, 계층 구조 -->
+  <style>
+    :root {
+      --primary-color: #004d40; /* 짙은 녹색 */
+      --secondary-color: #2e7d32; /* 중간 녹색 */
+      --accent-color: #a5d6a7; /* 밝은 녹색 */
+      --highlight-color: #f1f8e9; /* 연한 배경 */
+      --text-color: #212121;
+      --bg-light: #f9f9f9;
+      --bg-white: #ffffff;
+      --btn-color: #ffb300; /* 황금색 강조 */
+      --btn-hover: #ffa000;
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap');
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-color);
+      line-height: 1.8;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    header {
+      background-color: var(--primary-color);
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--bg-white);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      font-weight: 900;
+      letter-spacing: -1px;
+    }
+    header h1 a {
+      color: var(--bg-white);
+      text-decoration: none;
+    }
+    .hero {
+      background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+      color: var(--bg-white);
+      text-align: center;
+      padding: 90px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero h1 {
+      font-size: 3.2em;
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+      line-height: 1.3;
+    }
+    .hero p {
+      font-size: 1.4em;
+      margin-bottom: 35px;
+      font-weight: 500;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+    .cta-btn {
+      background-color: var(--btn-color);
+      color: var(--primary-color);
+      padding: 18px 45px;
+      font-size: 1.3em;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    .cta-btn:hover {
+      background-color: var(--btn-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .compare-form-box {
+      background-color: var(--bg-white);
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      margin-top: 30px;
+      text-align: left;
+    }
+    .compare-form-box h2 {
+      color: var(--primary-color);
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2em;
+      font-weight: 700;
+    }
+    .compare-form-box p {
+      font-size: 1.1em;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .compare-form-box label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+    .compare-form-box input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1em;
+    }
+    .content-section {
+      margin-top: 40px;
+      background-color: var(--bg-white);
+      padding: 60px 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+    .content-section h2 {
+      font-size: 2.5em;
+      color: var(--secondary-color);
+      margin-bottom: 30px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .content-section h3 {
+      font-size: 1.8em;
+      color: var(--primary-color);
+      margin-top: 30px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 5px;
+      font-weight: 700;
+    }
+    .content-section p, .content-section ul li {
+      font-size: 1.1em;
+      color: var(--text-color);
+      margin-bottom: 15px;
+    }
+    .content-section ul {
+      margin-left: 20px;
+      list-style-type: disc;
+    }
+    .feature-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin-top: 30px;
+    }
+    .feature-grid .item {
+      width: calc(33.33% - 20px);
+      margin: 10px;
+      padding: 25px;
+      background-color: var(--highlight-color);
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    .feature-grid .item h3 {
+      color: var(--secondary-color);
+      font-size: 1.3em;
+      margin-top: 10px;
+      border: none;
+      font-weight: 700;
+    }
+    .keyword-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .keyword-list li {
+      background-color: var(--accent-color);
+      color: var(--primary-color);
+      padding: 10px 20px;
+      margin: 5px;
+      border-radius: 20px;
+      font-weight: 500;
+      font-size: 0.9em;
+    }
+    .faq-item {
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+    }
+    .faq-item h3 {
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.4em;
+      color: var(--primary-color);
+      font-weight: 700;
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
+    .faq-item h3::after {
+      content: '+';
+      font-size: 1.5em;
+      color: var(--secondary-color);
+      transition: transform 0.3s;
+    }
+    .faq-item.active h3::after {
+      content: '-';
+      transform: rotate(180deg);
+    }
+    .faq-item p {
+      display: none;
+      padding-top: 10px;
+      color: #555;
+      font-size: 1.1em;
+    }
+    .faq-item.active p {
+      display: block;
+    }
+    footer {
+      background-color: var(--primary-color);
+      color: var(--bg-white);
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9em;
+    }
+    footer a {
+      color: var(--bg-white);
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* 데이터 시각화 스타일 */
+    .data-table, .data-graph {
+      margin: 30px 0;
+      padding: 20px;
+      background-color: var(--highlight-color);
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    .data-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .data-table th, .data-table td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: center;
+      font-size: 1em;
+    }
+    .data-table th {
+      background-color: var(--secondary-color);
+      color: var(--bg-white);
+      font-weight: 700;
+    }
+    .data-table tr:nth-child(even) {
+      background-color: #f0f0f0;
+    }
+    .data-graph img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* 반응형 디자인 */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.4em; }
+      .hero p { font-size: 1.2em; }
+      .cta-btn { padding: 15px 30px; font-size: 1.1em; }
+      .compare-form-box { padding: 25px; }
+      .content-section h2 { font-size: 2.2em; }
+      .feature-grid .item { width: 100%; margin: 10px 0; }
+      .keyword-list li { margin: 3px; font-size: 0.9em; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1><a href="/">암보험 면책기간 가이드</a></h1>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>암보험 면책기간, 제대로 알고 계신가요?</h1>
+        <p>가입 후 보험금 지급 거절? 면책기간과 감액기간에 대한 2026년 최신 정보로 현명한 가입을 시작하세요.</p>
+        <div class="compare-form-box">
+          <h2>맞춤형 암보험 상담 신청</h2>
+          <p>내 상황에 맞는 면책기간 없는 암보험, 감액기간 없는 상품을 전문가와 비교해보고 최적의 선택을 하세요.</p>
+          <form action="#" method="post">
+            <label for="name">이름</label>
+            <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
+            <label for="phone">연락처</label>
+            <input type="tel" id="phone" name="phone" placeholder="휴대폰 번호를 입력하세요" required>
+            <label for="age">나이</label>
+            <input type="number" id="age" name="age" placeholder="예: 35" required>
+            <label for="history">병력(간단히)</label>
+            <input type="text" id="history" name="history" placeholder="없음 또는 고혈압/당뇨 등" required>
+            <button type="submit" class="cta-btn">무료 상담 요청</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <h2>암보험 면책기간: 왜 존재하는가?</h2>
+        <p>암보험 가입을 고려할 때 가장 중요하게 이해해야 할 개념은 바로 '면책기간'입니다. 많은 소비자들이 보험 가입 즉시 보장이 시작된다고 오해하지만, 암보험은 예외입니다. 면책기간은 가입자가 보험에 가입한 날로부터 일정 기간 동안 보험사가 암 진단에 대한 보장 책임을 지지 않는 기간을 의미합니다. 이 기간 동안 암이 발병하면 보험금을 전혀 받을 수 없습니다.</p>
+        <p>면책기간이 존재하는 주된 이유는 '역선택(adverse selection)'을 방지하기 위함입니다. 이미 암을 앓고 있거나 암 진단을 받을 가능성이 높은 사람이 이를 숨기고 고액의 보험금을 목적으로 가입하는 것을 막기 위한 제도적 장치입니다. 따라서 대부분의 암보험 상품은 가입일로부터 90일을 면책기간으로 설정하고 있으며, 이 90일이 지나야 비로소 암에 대한 보장이 시작되는 '보장개시일'이 됩니다.</p>
+
+        <h3>면책기간 vs. 감액기간: 반드시 알아야 할 차이점</h3>
+        <p>면책기간 외에도 '감액기간'이라는 개념이 있습니다. 이 두 가지를 혼동하여 보험금 지급 관련 분쟁이 발생하는 경우가 많습니다.</p>
+        <ul>
+            <li><strong>면책기간 (waiting period):</strong> 보험금 지급 '0%' 기간. 가입 후 90일간은 암 진단 시 보험금 전액을 지급하지 않습니다.</li>
+            <li><strong>감액기간 (reduced coverage period):</strong> 보험금 지급 '50%' 기간. 면책기간(90일)이 지난 후, 일반적으로 1년 또는 2년 동안 암 진단 시 가입금액의 50%만 지급하는 기간입니다. 감액기간이 종료되어야 비로소 100% 보장이 시작됩니다.</li>
+        </ul>
+        <div class="data-table">
+            <h4>표: 일반적인 암보험 보장개시 기간별 지급률 (예시)</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>가입 시점 (진단일 기준)</th>
+                        <th>보장 내용</th>
+                        <th>키워드</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>가입 후 90일 이내 (면책기간)</td>
+                        <td>보험금 지급 없음 (0%)</td>
+                        <td>암보험면책기간, 보장개시일 미도래</td>
+                    </tr>
+                    <tr>
+                        <td>가입 후 90일 초과 ~ 1년 이내 (감액기간)</td>
+                        <td>가입금액의 50% 지급</td>
+                        <td>감액기간, 암보험금 반액 지급</td>
+                    </tr>
+                    <tr>
+                        <td>가입 후 1년 초과 (감액기간 종료)</td>
+                        <td>가입금액의 100% 지급</td>
+                        <td>100% 보장 개시, 면책기간 만료</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>2026년 암보험 트렌드: 면책기간의 변화</h3>
+        <p>2026년 현재, 암보험 상품들은 과거와 달리 면책기간 및 감액기간 조건에 변화를 주고 있습니다. 특히 보험사 간의 경쟁이 심화되면서 소비자에게 유리한 조건의 상품들이 출시되고 있습니다.</p>
+        <ul>
+            <li><strong>감액기간 폐지 추세:</strong> 일부 대형 손해보험사들은 경쟁력 강화를 위해 일반암 진단비의 감액기간을 없앤 상품을 판매하고 있습니다. 이는 가입 후 90일 면책기간만 지나면 바로 100% 보장을 받을 수 있게 되어 소비자에게 유리합니다.</li>
+            <li><strong>유사암 면책기간/감액기간:</strong> 유사암(갑상선암, 제자리암, 기타피부암 등)의 경우 일반암보다 면책기간이 짧거나 감액기간이 없는 상품도 증가하는 추세입니다. 그러나 여전히 상품마다 조건이 다르므로 '유사암 면책기간'을 반드시 확인해야 합니다.</li>
+            <li><strong>갱신형 vs. 비갱신형 면책기간:</strong> 갱신형 암보험은 보험료가 주기적으로 변동되지만, 갱신 시에는 일반적으로 면책기간이 재적용되지 않습니다. 비갱신형 암보험은 초기 보험료가 높지만 면책기간이 지난 후에는 보험료 변동 없이 동일하게 보장받습니다.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <h2>현명한 암보험 가입을 위한 전문가의 팁</h2>
+        <p>암보험을 현명하게 가입하고 면책기간으로 인한 피해를 최소화하기 위한 몇 가지 팁을 소개합니다. '내돈내산' 후기를 참고하여 무턱대고 가입하기보다는 전문가의 조언을 듣고 꼼꼼하게 비교하는 것이 중요합니다.</p>
+
+        <h3>팁 1. 유사암 보장 한도 및 면책기간 확인</h3>
+        <p>과거에는 유사암 진단비가 일반암 진단비와 동일하거나 높게 책정되기도 했지만, 최근에는 유사암 진단비 한도가 줄어드는 추세입니다. 또한 유사암에 대한 면책기간이나 감액기간 조건도 상품별로 다릅니다. '유사암 면책기간'을 반드시 확인하여 일반암 보장과 별도로 충분한 보장 한도를 확보하는 것이 중요합니다.</p>
+
+        <h3>팁 2. '면책기간 없는 암보험'의 실체 파악</h3>
+        <p>일부 광고에서는 '면책기간 없는 암보험'을 강조하지만, 이는 대부분 어린이보험이나 특정 소액암(갑상선암 등)에 한정된 경우가 많습니다. 성인 일반암의 경우 90일 면책기간은 거의 모든 상품에 적용된다고 보아야 합니다. 따라서 '면책기간 없는 암보험 추천'이라는 광고 문구에 현혹되기보다는, 실제 약관을 꼼꼼히 확인하여 일반암 보장의 면책/감액 여부를 따져보아야 합니다.</p>
+
+        <h3>팁 3. 보험 가입 전후의 건강 검진 시기 조절</h3>
+        <p>가장 흔한 분쟁 사례는 가입 전 의심 증상으로 검사를 받았거나, 가입 직후 면책기간 내에 건강 검진을 통해 암 진단을 받는 경우입니다. 한국소비자원의 분쟁 사례를 보면 '고지의무 위반'으로 인한 보험금 지급 거절이 많습니다. 따라서 보험 가입 전후의 건강검진 스케줄을 신중하게 조절하는 것이 중요합니다. 특히 가입 직후 90일 동안은 암 진단을 받더라도 보험금을 받을 수 없으므로, 급하게 건강검진을 예약하기보다는 면책기간이 지난 후에 진행하는 것이 유리할 수 있습니다.</p>
+
+        <h3>팁 4. 2026년 보험료 비교 (갱신형 vs. 비갱신형)</h3>
+        <p>암보험을 선택할 때 가장 큰 고민 중 하나는 '갱신형'과 '비갱신형' 중 어떤 것이 나에게 더 '저렴한곳'인지 판단하는 것입니다. 갱신형은 초기 보험료가 저렴한 장점이 있지만, 나이가 들면서 보험료가 인상됩니다. 비갱신형은 초기 보험료가 높지만, 납입 기간 동안 보험료 변동이 없는 장점이 있습니다. '암보험 순위'를 따지기보다는 자신의 경제 상황과 보장 기간을 고려하여 선택하는 것이 중요합니다.</p>
+        <div class="data-graph">
+            <h4 style="text-align:center;">그래프: 갱신형 vs. 비갱신형 보험료 비교 (예상)</h4>
+            <!-- 그래프 이미지 삽입 (시뮬레이션) -->
+            <img src="https://via.placeholder.com/800x400/f1f8e9/004d40?text=2026년+갱신형+VS+비갱신형+암보험료+시뮬레이션" alt="암보험 갱신형 비갱신형 보험료 변화 그래프">
+            <p style="text-align: center; font-style: italic; font-size: 0.9em;">(출처: 전문가 시뮬레이션. 갱신형은 나이가 들수록 보험료가 급격히 상승합니다.)</p>
+        </div>
+
+        <h3>팁 5. 암보험 가입 후기 및 약관 해석</h3>
+        <p>소비자 분쟁 중 '약관 해석' 관련 문제가 90% 이상을 차지합니다. 특히 '암의 직접적인 치료' 범위에 대한 해석이 모호하여 보험금 지급이 거절되는 사례가 많습니다. 따라서 보험 가입 시 '암보험 후기'를 꼼꼼히 찾아보고, 약관에서 보장범위를 명확히 확인해야 합니다.</p>
+
+        <h3>함께 많이 찾는 키워드</h3>
+        <ul class="keyword-list">
+          <li>#암보험면책기간</li>
+          <li>#암보험감액기간</li>
+          <li>#암보험가입시기</li>
+          <li>#암보험비교</li>
+          <li>#유사암면책기간</li>
+          <li>#면책기간90일</li>
+          <li>#암보험순위</li>
+          <li>#암보험추천</li>
+          <li>#갱신형비갱신형차이점</li>
+          <li>#암보험료계산</li>
+          <li>#암보험가입후기</li>
+          <li>#암보험보장범위</li>
+          <li>#암보험저렴한곳</li>
+          <li>#암보험내돈내산</li>
+          <li>#2026암보험</li>
+          <li>#암보험보장개시일</li>
+          <li>#소액암면책기간</li>
+          <li>#암보험장점단점</li>
+          <li>#암보험예상금액</li>
+          <li>#암보험갱신</li>
+          <li>#암보험가입팁</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <h2>자주 묻는 질문 (FAQ)</h2>
+
+        <div class="faq-item">
+          <h3>Q: 면책기간 90일이 지나면 바로 100% 보장되나요?</h3>
+          <p>A: 아닙니다. 면책기간(90일)이 지난 후에도 감액기간(보통 1년~2년)이 적용될 수 있습니다. 감액기간 동안에는 가입금액의 50%만 지급되며, 감액기간이 종료되어야 100% 보장이 시작됩니다. 다만, 최근에는 감액기간을 없앤 상품도 있으므로 가입 시 약관을 꼼꼼히 확인해야 합니다.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: 면책기간 중 암 진단 시, 납입한 보험료는 어떻게 되나요?</h3>
+          <p>A: 면책기간 내에 암 진단을 받아 보험금 지급이 거절되면, 보험사는 해당 계약을 무효 처리하고 이미 납입한 보험료 전액을 환급해주는 것이 일반적입니다. 하지만 계약 약관에 따라 다를 수 있으므로 반드시 확인해야 합니다.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: '면책기간 없는 암보험'이 정말 존재하나요?</h3>
+          <p>A: 네, 존재합니다. 하지만 대부분의 '면책기간 없는 암보험'은 소액암이나 어린이보험에 한정되는 경우가 많습니다. 또한 일반암에 대해 면책기간을 없앤 상품도 출시되고 있으나, 이는 보험료가 높거나 간편심사형 상품일 수 있습니다. 면책기간이 없더라도 감액기간은 있을 수 있으니 약관을 꼼꼼히 확인하는 것이 중요합니다.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: 면책기간이 지나기 전에 병원에서 암 의심 진단을 받았는데, 어떻게 해야 하나요?</h3>
+          <p>A: 보험 가입 전후의 건강 상태에 대한 고지의무를 위반하면 보험 계약이 해지될 수 있습니다. 만약 면책기간 이전에 암 의심 진단을 받았다면, 면책기간이 지난 후에 확정 진단을 받더라도 보험사와의 분쟁 소지가 발생할 수 있습니다. 가입 전 충분히 검토하고 가입하는 것이 가장 안전하며, 의심 진단 시 전문가의 상담을 받는 것이 좋습니다.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Q: 면책기간이 지난 후 전이된 암은 보장되나요?</h3>
+          <p>A: 암이 처음 진단된 시점을 기준으로 면책기간이 적용됩니다. 최초 암 진단 이후 전이된 암은 일반적으로 최초 암 진단비 지급 시점에 함께 보장됩니다. 하지만 약관에 따라 암 재발/전이에 대한 특약을 별도로 가입해야 하는 경우도 있으므로 '암보험 보장범위'를 확인해야 합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <div class="container">
+        <h2>신뢰할 수 있는 외부 자료 및 참고 링크</h2>
+        <p>암보험 가입과 면책기간 관련 분쟁을 예방하기 위해 신뢰할 수 있는 공인된 기관의 정보를 확인하세요.</p>
+        <ul>
+          <li><a href="https://www.fss.or.kr/" target="_blank" rel="noopener">금융감독원 (FSS)</a>: 보험상품 관련 분쟁 사례 및 소비자 유의사항 제공</li>
+          <li><a href="https://www.kca.go.kr/index.do" target="_blank" rel="noopener">한국소비자원 (KCA)</a>: 암보험 관련 소비자 피해주의보 및 분쟁 조정 사례 제공</li>
+          <li><a href="https://namu.wiki/w/%EC%95%94%EB%B3%B4%ED%97%98" target="_blank" rel="noopener">나무위키 - 암보험</a>: 암보험의 일반적인 정의 및 관련 정보 제공</li>
+          <li><a href="https://www.law.go.kr/" target="_blank" rel="noopener">국가법령정보센터</a>: 보험 관련 법령 및 약관 표준안 정보 제공</li>
+          <li><a href="https://www.insjournal.co.kr/news/articleList.html?sc_sub_section_code=S2N3&view_type=sm" target="_blank" rel="noopener">보험저널</a>: 보험업계 동향 및 상품 트렌드 분석 기사</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p><strong>암보험 면책기간 가이드</strong> &copy; 2026 All Rights Reserved.</p>
+      <p>본 사이트는 암보험 관련 정보 제공을 목적으로 하며, 실제 보험 가입은 해당 보험사와 직접 진행됩니다.</p>
+      <p>
+        <a href="#">개인정보처리방침</a>
+        <a href="#">이용약관</a>
+        <a href="#">문의하기</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // FAQ 토글 기능
+    document.querySelectorAll('.faq-item h3').forEach(item => {
+      item.addEventListener('click', event => {
+        const parent = item.parentElement;
+        parent.classList.toggle('active');
+      });
+    });
+  </script>
+
+
+  
